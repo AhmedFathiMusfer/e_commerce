@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "867767870522",
+    "project_id": "musfer-ecommerce",
+    "storage_bucket": "musfer-ecommerce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867767870522:android:8a2d88acf89ec9adbf4103",
+        "android_client_info": {
+          "package_name": "com.example.e_commerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx-pn3xp9onY3W1yUOaZLsEVO_fbyhLK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
