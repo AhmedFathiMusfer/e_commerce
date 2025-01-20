@@ -1,7 +1,9 @@
+import 'package:e_commerce/controllers/database_controller.dart';
 import 'package:e_commerce/models/product.dart';
 import 'package:e_commerce/utilities/assets.dart';
 import 'package:e_commerce/views/widgets/list_item_home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   Widget _buildHeaderOfList(BuildContext context,
@@ -37,6 +39,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<Database>(context);
+
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(
@@ -84,15 +88,30 @@ class HomePage extends StatelessWidget {
         ),
         SizedBox(
           height: 300,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: dummyProducts
-                .map((e) => Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: ListItemHome(product: e),
-                    ))
-                .toList(),
-          ),
+          child: StreamBuilder<List<Product>>(
+              stream: database.SelesProductStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  final products = snapshot.data;
+                  if (products == null || products.isEmpty) {
+                    return Center(
+                      child: Text("No there Products"),
+                    );
+                  }
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: products
+                        .map((e) => Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: ListItemHome(product: e),
+                            ))
+                        .toList(),
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }),
         ),
         SizedBox(
           height: 24.0,
@@ -107,15 +126,30 @@ class HomePage extends StatelessWidget {
         ),
         SizedBox(
           height: 300,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: dummyProducts
-                .map((e) => Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: ListItemHome(product: e),
-                    ))
-                .toList(),
-          ),
+          child: StreamBuilder<List<Product>>(
+              stream: database.NewProductStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  final products = snapshot.data;
+                  if (products == null || products.isEmpty) {
+                    return Center(
+                      child: Text("No there Products"),
+                    );
+                  }
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: products
+                        .map((e) => Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: ListItemHome(product: e),
+                            ))
+                        .toList(),
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }),
         )
       ],
     )));

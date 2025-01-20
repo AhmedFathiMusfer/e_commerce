@@ -1,7 +1,7 @@
 import 'package:e_commerce/utilities/assets.dart';
 
 class Product {
-  final int id;
+  final String id;
   final String title;
   final int price;
   final String imagUrl;
@@ -30,7 +30,7 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> map, String documentId) {
     return Product(
-      id: int.parse(documentId),
+      id: documentId,
       title: map['title'],
       price: map['price'],
       imagUrl: map['imagUrl'],
@@ -43,35 +43,35 @@ class Product {
 
 List<Product> dummyProducts = [
   Product(
-      id: 1,
+      id: "1",
       title: "T-shirt",
       price: 300,
       imagUrl: AppAssets.topPannerHomePage,
       category: "clothes",
       discountValue: 2),
   Product(
-      id: 2,
+      id: "2",
       title: "T-shirt",
       price: 300,
       imagUrl: AppAssets.topPannerHomePage,
       category: "clothes",
       discountValue: 20),
   Product(
-      id: 3,
+      id: "3",
       title: "T-shirt",
       price: 300,
       imagUrl: AppAssets.topPannerHomePage,
       category: "clothes",
       discountValue: 20),
   Product(
-      id: 4,
+      id: "4",
       title: "T-shirt",
       price: 300,
       imagUrl: AppAssets.topPannerHomePage,
       category: "clothes",
       discountValue: 20),
   Product(
-      id: 5,
+      id: "5",
       title: "T-shirt",
       price: 300,
       imagUrl: AppAssets.topPannerHomePage,

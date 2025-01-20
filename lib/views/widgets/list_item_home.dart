@@ -37,7 +37,7 @@ class ListItemHome extends StatelessWidget {
                         padding: EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            '${product.discountValue}%',
+                            '${product.discountValue == 0 ? 0 : product.discountValue}%',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
