@@ -98,15 +98,15 @@ class HomePage extends StatelessWidget {
                       child: Text("No there Products"),
                     );
                   }
-                  return ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: products
-                        .map((e) => Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: ListItemHome(product: e),
-                            ))
-                        .toList(),
-                  );
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: products.length,
+                      itemBuilder: (_, index) {
+                        return Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: ListItemHome(product: products[index]),
+                        );
+                      });
                 }
                 return Center(
                   child: CircularProgressIndicator(),
@@ -136,15 +136,15 @@ class HomePage extends StatelessWidget {
                       child: Text("No there Products"),
                     );
                   }
-                  return ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: products
-                        .map((e) => Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: ListItemHome(product: e),
-                            ))
-                        .toList(),
-                  );
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: products.length,
+                      itemBuilder: (_, index) {
+                        return Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: ListItemHome(product: products[index]),
+                        );
+                      });
                 }
                 return Center(
                   child: CircularProgressIndicator(),
