@@ -14,7 +14,7 @@ class MainButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(5),
               )),
           child: Text(
             text,

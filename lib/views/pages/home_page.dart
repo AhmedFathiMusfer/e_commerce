@@ -86,33 +86,35 @@ class HomePage extends StatelessWidget {
         SizedBox(
           height: 8.0,
         ),
-        SizedBox(
-          height: 300,
-          child: StreamBuilder<List<Product>>(
-              stream: database.SelesProductStream(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  final products = snapshot.data;
-                  if (products == null || products.isEmpty) {
-                    return Center(
-                      child: Text("No there Products"),
-                    );
-                  }
-                  return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: products.length,
-                      itemBuilder: (_, index) {
-                        return Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: ListItemHome(product: products[index]),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: SizedBox(
+              height: 330,
+              child: StreamBuilder<List<Product>>(
+                  stream: database.SelesProductStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      final products = snapshot.data;
+                      if (products == null || products.isEmpty) {
+                        return Center(
+                          child: Text("No there Products"),
                         );
-                      });
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }),
-        ),
+                      }
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: products.length,
+                          itemBuilder: (_, index) {
+                            return Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: ListItemHome(product: products[index]),
+                            );
+                          });
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
+            )),
         SizedBox(
           height: 24.0,
         ),
@@ -124,33 +126,35 @@ class HomePage extends StatelessWidget {
         SizedBox(
           height: 8.0,
         ),
-        SizedBox(
-          height: 300,
-          child: StreamBuilder<List<Product>>(
-              stream: database.NewProductStream(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  final products = snapshot.data;
-                  if (products == null || products.isEmpty) {
-                    return Center(
-                      child: Text("No there Products"),
-                    );
-                  }
-                  return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: products.length,
-                      itemBuilder: (_, index) {
-                        return Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: ListItemHome(product: products[index]),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: SizedBox(
+              height: 330,
+              child: StreamBuilder<List<Product>>(
+                  stream: database.NewProductStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      final products = snapshot.data;
+                      if (products == null || products.isEmpty) {
+                        return Center(
+                          child: Text("No there Products"),
                         );
-                      });
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }),
-        )
+                      }
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: products.length,
+                          itemBuilder: (_, index) {
+                            return Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: ListItemHome(product: products[index]),
+                            );
+                          });
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
+            ))
       ],
     )));
   }
