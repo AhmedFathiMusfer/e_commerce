@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/controllers/database_controller.dart';
 import 'package:e_commerce/models/product.dart';
 import 'package:e_commerce/utilities/assets.dart';
@@ -28,11 +29,15 @@ class ListItemHome extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: Image.network(
-                  product.imagUrl,
+                child: CachedNetworkImage(
+                  imageUrl: product.imagUrl,
                   fit: BoxFit.cover,
                   width: 180,
                   height: 180,
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(),
+                  ), // أثناء التحميل
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
               Padding(

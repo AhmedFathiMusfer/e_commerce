@@ -1,3 +1,4 @@
+import 'package:e_commerce/views/pages/cart_page.dart';
 import 'package:e_commerce/views/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     super.initState();
     _widgetOptions = <Widget>[
       HomePage(),
-      HomePage(),
+      CartPage(),
       HomePage(),
       HomePage(),
       HomePage(),
@@ -32,15 +33,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Stack(
         clipBehavior: Clip.none,
         children: [
           BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xFF5E5E5E5),
+            backgroundColor: Colors.white,
             selectedItemColor: Colors.black, // اللون الأرجواني
             unselectedItemColor: Colors.black54,
             currentIndex: _selectedIndex,

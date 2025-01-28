@@ -1,8 +1,8 @@
 class Cart {
-  final String id;
+  String id;
   final String productId;
   final String title;
-  final int quantity;
+  int quantity;
   final int price;
   final String imageUrl;
   final int discountValue;

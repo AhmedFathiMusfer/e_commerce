@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
-  MainButton(this.text, this.onTap, {super.key});
+  MainButton(this.text, this.onTap, {this.hasRadius = true, super.key});
   final String text;
   final VoidCallback onTap;
+  final bool hasRadius;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,7 +15,7 @@ class MainButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(hasRadius == true ? 20 : 5),
               )),
           child: Text(
             text,

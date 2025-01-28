@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:e_commerce/controllers/auth_controller.dart';
 import 'package:e_commerce/services/auth.dart';
 import 'package:e_commerce/utilities/enums.dart';
@@ -142,16 +141,18 @@ class _AuthPageState extends State<AuthPage> {
                     height: 14,
                   ),
                   MainButton(
-                      model.authFormType == AuthFormType.login
-                          ? "login"
-                          : "Register", () {
-                    setState(() {
-                      if (_formkey.currentState!.validate()) {
-                        _submit(model);
-                      }
-                    });
-                    ;
-                  }),
+                    model.authFormType == AuthFormType.login
+                        ? "login"
+                        : "Register",
+                    () {
+                      setState(() {
+                        if (_formkey.currentState!.validate()) {
+                          _submit(model);
+                        }
+                      });
+                    },
+                    hasRadius: false,
+                  ),
                   SizedBox(height: 13),
                   Align(
                     alignment: Alignment.center,

@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/controllers/database_controller.dart';
 import 'package:e_commerce/models/cart.dart';
 import 'package:e_commerce/models/product.dart';
 import 'package:e_commerce/utilities/constants.dart';
+import 'package:e_commerce/views/widgets/dialog_without_buttom.dart';
 import 'package:e_commerce/views/widgets/drop_down_menu.dart';
 import 'package:e_commerce/views/widgets/main_button.dart';
 import 'package:e_commerce/views/widgets/main_dialog.dart';
@@ -29,6 +31,7 @@ class _ProductDetailState extends State<ProductDetail> {
         discountValue: widget.product.discountValue!,
         size: dropdownvalue,
       ));
+      SuccessDialog().show(context);
     } catch (e) {
       MainDialog(title: "Error", content: e.toString()).show(context);
     }
@@ -54,11 +57,14 @@ class _ProductDetailState extends State<ProductDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              widget.product.imagUrl,
+            CachedNetworkImage(
+              imageUrl: widget.product.imagUrl,
+              fit: BoxFit.cover,
               width: double.infinity,
               height: size.height * 0.5,
-              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  CircularProgressIndicator(), // أثناء التحميل
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             const SizedBox(
               height: 8.0,
