@@ -8,20 +8,43 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class ListItemHome extends StatelessWidget {
+class ListItemHome extends StatefulWidget {
   ListItemHome({required this.product, super.key});
   final Product product;
+
+  @override
+  State<ListItemHome> createState() => _ListItemHomeState();
+}
+
+class _ListItemHomeState extends State<ListItemHome> {
+  bool favorite = false;
+  Future<void> Isfavorite(Database database) async {
+    final result = await database.getProductOfFavorite(widget.product.id);
+
+    if (result == null) {
+      favorite = false;
+    } else {
+      favorite = true;
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final database = Provider.of<Database>(context);
+    Isfavorite(database);
     return InkWell(
-      onTap: () => {
-        Navigator.of(context, rootNavigator: true).pushNamed(
+      onTap: () async {
+        await Navigator.of(context, rootNavigator: true).pushNamed(
             AppRoutes.ProductDetailRoutes,
-            arguments: Map<String, dynamic>.from(
-                {'product': product, 'database': database}))
+            arguments: Map<String, dynamic>.from({
+              'product': widget.product,
+              'database': database,
+              "Isfavorite": favorite
+            }));
+        Isfavorite(database);
+        //setState(() {});
       },
       child: Stack(
         children: [
@@ -30,7 +53,7 @@ class ListItemHome extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: CachedNetworkImage(
-                  imageUrl: product.imagUrl,
+                  imageUrl: widget.product.imagUrl,
                   fit: BoxFit.cover,
                   width: 180,
                   height: 180,
@@ -53,7 +76,7 @@ class ListItemHome extends StatelessWidget {
                         padding: EdgeInsets.all(4.0),
                         child: Center(
                           child: Text(
-                            '${product.discountValue == 0 ? 0 : product.discountValue}%',
+                            '${widget.product.discountValue == 0 ? 0 : widget.product.discountValue}%',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
@@ -83,12 +106,21 @@ class ListItemHome extends StatelessWidget {
                   radius: 20,
                   backgroundColor: Colors.white,
                   child: InkWell(
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 20,
-                      color: Colors.grey,
-                    ),
-                    onTap: () {},
+                    child: favorite == true
+                        ? Icon(Icons.favorite, color: Colors.redAccent)
+                        : Icon(Icons.favorite_border_outlined),
+                    onTap: () {
+                      if (favorite) {
+                        database.removeFromeFavorite(widget.product);
+                      } else {
+                        database.addToFavorite(widget.product);
+                      }
+                      setState(() {
+                        favorite = !favorite;
+                      });
+
+                      print(favorite ? "true" : "false");
+                    },
                   ),
                 ),
               )),
@@ -100,7 +132,7 @@ class ListItemHome extends StatelessWidget {
                   Row(
                     children: [
                       RatingBarIndicator(
-                        rating: product.rate ?? 4.0,
+                        rating: widget.product.rate ?? 4.0,
                         itemSize: 25.0,
                         direction: Axis.horizontal,
                         itemBuilder: (context, _) => Icon(
@@ -120,7 +152,7 @@ class ListItemHome extends StatelessWidget {
                   ),
                   SizedBox(height: 8.0),
                   Text(
-                    product.category,
+                    widget.product.category,
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
@@ -130,14 +162,14 @@ class ListItemHome extends StatelessWidget {
                     height: 6.0,
                   ),
                   Text(
-                    product.title,
+                    widget.product.title,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    '${product.price}\$',
+                    '${widget.product.price}\$',
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!

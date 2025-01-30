@@ -1,5 +1,7 @@
 import 'package:e_commerce/views/pages/cart_page.dart';
+import 'package:e_commerce/views/pages/favorite_page.dart';
 import 'package:e_commerce/views/pages/home_page.dart';
+import 'package:e_commerce/views/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -18,9 +20,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
     _widgetOptions = <Widget>[
       HomePage(),
       CartPage(),
+      FavoritePage(),
       HomePage(),
-      HomePage(),
-      HomePage(),
+      ProfilePage(),
     ];
   }
 

@@ -6,6 +6,8 @@ import 'package:e_commerce/views/widgets/list_item_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/AutoSlidingPageView.dart';
+
 class HomePage extends StatelessWidget {
   Widget _buildHeaderOfList(BuildContext context,
       {required String title,
@@ -50,15 +52,26 @@ class HomePage extends StatelessWidget {
         Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            CachedNetworkImage(
-              imageUrl: AppAssets.topPannerHomePage,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: 300,
-              placeholder: (context, url) =>
-                  CircularProgressIndicator(), // أثناء التحميل
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            ),
+            SizedBox(
+                height: 300,
+                child: StreamBuilder<List<Product>>(
+                    stream: database.NewProductStream(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.active) {
+                        final products = snapshot.data;
+                        if (products == null || products.isEmpty) {
+                          return Center(
+                            child: Text("No there Products"),
+                          );
+                        }
+                        return AutoSlidingPageView(
+                          products: products,
+                        );
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    })),
             Opacity(
               opacity: 0.3,
               child: Container(

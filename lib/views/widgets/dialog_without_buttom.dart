@@ -4,11 +4,10 @@ class SuccessDialog {
   void show(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: false, // منع الإغلاق عند الضغط خارج النافذة
+      barrierDismissible: false,
       builder: (BuildContext context) {
-        // تأخير الإغلاق بعد 2 ثانية
         Future.delayed(Duration(seconds: 3), () {
-          Navigator.of(context).pop(); // إغلاق النافذة
+          Navigator.of(context).pop();
         });
 
         return AlertDialog(

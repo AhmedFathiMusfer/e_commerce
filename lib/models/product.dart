@@ -1,7 +1,7 @@
 import 'package:e_commerce/utilities/assets.dart';
 
 class Product {
-  final String id;
+  String id;
   final String title;
   final int price;
   final String imagUrl;

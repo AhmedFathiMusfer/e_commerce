@@ -185,7 +185,7 @@ class _AuthPageState extends State<AuthPage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16.0),
                             color: Colors.white),
-                        child: Icon(Icons.add),
+                        child: Image.asset("assets/icons/google.png"),
                       ),
                       SizedBox(
                         width: 7,
@@ -196,7 +196,7 @@ class _AuthPageState extends State<AuthPage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16.0),
                             color: Colors.white),
-                        child: Icon(Icons.add),
+                        child: Image.asset("assets/icons/facebook.png"),
                       )
                     ],
                   )

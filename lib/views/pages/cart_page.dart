@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:e_commerce/controllers/database_controller.dart';
 import 'package:e_commerce/models/cart.dart';
+import 'package:e_commerce/utilities/routes.dart';
 import 'package:e_commerce/views/widgets/cart_list_item.dart';
 import 'package:e_commerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,10 @@ class _CartPageState extends State<CartPage> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  MainButton("Check out", () => {}),
+                  MainButton("Check out", () {
+                    Navigator.of(context, rootNavigator: true)
+                        .pushNamed(AppRoutes.CheckoutPageRoutes);
+                  }),
                   SizedBox(
                     height: 32.0,
                   )

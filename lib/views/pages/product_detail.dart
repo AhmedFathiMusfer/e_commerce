@@ -12,13 +12,13 @@ import 'package:provider/provider.dart';
 
 class ProductDetail extends StatefulWidget {
   final Product product;
-  ProductDetail({required this.product});
+  bool Isfavorite = false;
+  ProductDetail({required this.product, required this.Isfavorite});
   @override
   _ProductDetailState createState() => _ProductDetailState();
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  bool Isfavorite = false;
   late String dropdownvalue;
   Future<void> _addToCart(Database database) async {
     try {
@@ -31,6 +31,7 @@ class _ProductDetailState extends State<ProductDetail> {
         discountValue: widget.product.discountValue!,
         size: dropdownvalue,
       ));
+
       SuccessDialog().show(context);
     } catch (e) {
       MainDialog(title: "Error", content: e.toString()).show(context);
@@ -95,8 +96,14 @@ class _ProductDetailState extends State<ProductDetail> {
                             alignment: Alignment.topRight,
                             child: InkWell(
                                 onTap: () {
+                                  if (widget.Isfavorite) {
+                                    database
+                                        .removeFromeFavorite(widget.product);
+                                  } else {
+                                    database.addToFavorite(widget.product);
+                                  }
                                   setState(() {
-                                    Isfavorite = !Isfavorite;
+                                    widget.Isfavorite = !widget.Isfavorite;
                                   });
                                 },
                                 child: SizedBox(
@@ -108,9 +115,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                         color: Colors.white),
                                     child: Padding(
                                       padding: EdgeInsets.all(8.0),
-                                      child: Icon(Isfavorite == true
-                                          ? Icons.favorite
-                                          : Icons.favorite_border_outlined),
+                                      child: widget.Isfavorite == true
+                                          ? Icon(Icons.favorite,
+                                              color: Colors.redAccent)
+                                          : Icon(
+                                              Icons.favorite_border_outlined),
                                     ),
                                   ),
                                 )))

@@ -27,10 +27,14 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       final args = settings.arguments as Map<String, dynamic>;
       final product = args['product'];
       final database = args['database'];
+      final Isfavorite = args['Isfavorite'];
       return CupertinoPageRoute(
           builder: (_) => Provider<Database>.value(
                 value: database,
-                child: ProductDetail(product: product as Product),
+                child: ProductDetail(
+                  product: product as Product,
+                  Isfavorite: Isfavorite as bool,
+                ),
               ),
           settings: settings);
     case AppRoutes.CheckoutPageRoutes:
